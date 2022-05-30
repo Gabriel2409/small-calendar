@@ -1,6 +1,6 @@
 import logging
 
-from app.application_factory import create_app
+from app.application_factory import create_app, init_db
 
 app = create_app()
 log = logging.getLogger("uvicorn")
@@ -10,7 +10,7 @@ log = logging.getLogger("uvicorn")
 async def startup_event():
     """Inits the database on startup"""
     log.info("Starting application")
-    # init_db
+    init_db(app)
 
 
 @app.on_event("shutdown")

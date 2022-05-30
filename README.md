@@ -21,6 +21,19 @@ Read this section if you plan to modify the app
   Note: `.env` file usually contains sensitive data, which is why it is not saved to source
   control. However, there is no sensitive data in this app so `.env` is just a copy of `.env.example` without modifications
 
+## Database creation
+
+Note: for simplicity, development uses a sqlite database.
+
+- to create an empty db, use `aerich init-db`: it will create the sqlite database and a
+  migration folder used for upgrade/downgrade. If the migration folder is already here, run `aerich upgrade`
+- Move the created database inside the `backend` folder.
+- NOTE: if you don't care about migrations, you can alternatively run the script in
+  backend/app/database_schemas. It will create the db without the aerich table and without
+  creating the migration folder.
+- NOTE2: aerich generated migration file depends on yoour choice of db, it is not exactly
+  the same for sqlite and postgres for example
+
 ## Run the app
 
 - Run the backend:

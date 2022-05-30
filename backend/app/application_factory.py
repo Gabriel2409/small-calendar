@@ -1,5 +1,7 @@
+from app.config import get_settings
 from app.routers import hello
 from fastapi import FastAPI
+from tortoise.contrib.fastapi import register_tortoise
 
 
 def create_app():
@@ -17,4 +19,11 @@ def init_db(app: FastAPI):
     correct status code
     Args:
         app (FastAPI): the fastapi app"""
-    pass
+    db_url = get_settings().database_url
+    register_tortoise(
+        app,
+        db_url=db_url,
+        modules={"models": ["app.models.tortoise_models"]},
+        generate_schemas=False,
+        add_exception_handlers=True,
+    )
