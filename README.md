@@ -2,6 +2,10 @@
 
 A small calendar application allowing to book time slots based on my availability
 
+# Run the app with docker
+
+- To run the app with docker compose: `docker compose up`
+
 # Development
 
 Read this section if you plan to modify the app
@@ -13,6 +17,9 @@ Read this section if you plan to modify the app
 - upgrade pip: `pip install --upgrade pip`
 - Install dev requirements: `pip install -r requirements-dev.txt`
 - Install the requirements: `pip install -r requirements.txt`
+- In the backend folder, copy the .env.example file to .env: `cp .env.example .env`
+  Note: `.env` file usually contains sensitive data, which is why it is not saved to source
+  control. However, there is no sensitive data in this app so `.env` is just a copy of `.env.example` without modifications
 
 ## Run the app
 

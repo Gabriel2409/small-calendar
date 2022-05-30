@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  backend:
+    image: small-calendar-backend:0.0.1
+    build:
+      dockerfile: docker/Dockerfile.backend
+      context: .
+    ports:
+      - 8000:8000
+    container_name: small-calendar-backend-container
+    restart: always
+    env_file:
+      # note: we store the .env.prod directly in the repo because it does not contain
+      # sensitive information
+      - docker/.env.prod
