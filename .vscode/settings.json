@@ -1,0 +1,24 @@
+{
+	"editor.formatOnSave": true,
+	"python.formatting.provider": "black",
+	"python.testing.pytestArgs": ["backend"],
+	"python.testing.pytestEnabled": true,
+	"python.testing.unittestEnabled": false,
+	"workbench.colorCustomizations": {
+		// cosmetic change to workspace color
+		"titleBar.activeBackground": "#0097A7",
+		"titleBar.activeForeground": "#e7e7e7"
+	},
+	"[python]": {
+		"editor.codeActionsOnSave": {
+			// sort import for python on save, does not delete unused imports
+			"source.organizeImports": true
+		}
+	},
+	"[typescript]": {
+		"editor.codeActionsOnSave": {
+			// sort import for ts on save without deleting unused imports
+			"source.sortImports": true
+		}
+	}
+}

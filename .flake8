@@ -1,0 +1,18 @@
+[flake8]
+extend-ignore = E203
+max-line-length = 88
+max-complexity = 18
+exclude =
+    .git
+    __pycache__
+    build
+    dist
+    releases
+    .venv
+    venv
+    .pytest_cache
+    .vscode
+    .coverage
+    *.egg-info
+verbose = 1
+statistics = True
