@@ -1,0 +1,24 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Dev mode: Run App",
+			"dependsOn": ["Dev mode: Run Backend"],
+			"problemMatcher": []
+		},
+		{
+			"label": "Dev mode: Run Backend",
+			"type": "shell",
+			"command": "source venv/bin/activate && cd backend && uvicorn app.main:app --reload --port 8000 --reload-dir ..",
+			"presentation": {
+				"reveal": "always",
+				"panel": "new",
+				"group": "develop"
+			},
+			"runOptions": {
+				"runOn": "default"
+			},
+			"problemMatcher": []
+		}
+	]
+}
