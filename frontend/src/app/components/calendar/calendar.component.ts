@@ -1,9 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { addDays, addHours, startOfDay } from 'date-fns';
 import { Subscription } from 'rxjs';
@@ -12,9 +8,9 @@ import {
   Availability,
   Reservation,
 } from 'src/app/services/api.service';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 @Component({
   selector: 'mwl-demo-component',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
@@ -27,28 +23,13 @@ export class CalendarComponent implements OnInit, OnDestroy {
   view: CalendarView = CalendarView.Week;
 
   viewDate: Date = new Date();
+  excludeDays: number[] = [0, 6];
+  dayStartHour: number = 8;
+  dayEndHour: number = 20;
 
-  events: CalendarEvent[] = [
-    {
-      start: startOfDay(new Date()),
-      title: 'An event',
-      // color: colors.yellow,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'Another event',
-      // color: colors.blue,
-    },
-    {
-      start: addDays(addHours(startOfDay(new Date()), 2), 2),
-      end: addDays(new Date(), 2),
-      title: 'And another',
-      // color: colors.red,
-    },
-  ];
+  calendarEvents: CalendarEvent[] = [];
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private dialog: MatDialog) {}
   ngOnInit(): void {
     this._getReservations();
     this._getAvailabilities();
@@ -93,6 +74,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         next: (res) => {
           this.reservations = res;
           console.log('reservations', this.reservations);
+          this.updateEvents();
         },
         error: (err) => {
           console.log(err);
@@ -114,6 +96,47 @@ export class CalendarComponent implements OnInit, OnDestroy {
           console.log(err);
         },
       });
+  }
+
+  /**
+   * update shown events with the reservations
+   */
+  updateEvents() {
+    this.calendarEvents = [];
+    this.reservations.forEach((el) =>
+      this.calendarEvents.push({
+        id: el.id,
+        start: new Date(el.start),
+        end: new Date(el.end),
+        title: el.title,
+        actions: [
+          {
+            label: '<i class="fas fa-fw fa-trash"></i>Delete?',
+            onClick: ({ event, sourceEvent }) => {
+              this.openDeleteDialog(event);
+            },
+          },
+        ],
+      })
+    );
+    console.log('calendarEvents', this.calendarEvents);
+  }
+
+  /**
+   * opens dialog to confirm deletion of reservation.
+   */
+  openDeleteDialog(calendarEvent: CalendarEvent) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '450px',
+      data: calendarEvent,
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (result: boolean | undefined) => {
+        if (result === true) {
+          this._getReservations();
+        }
+      },
+    });
   }
 
   /**Unsubscribes from subscriptions to avoid memory leak */

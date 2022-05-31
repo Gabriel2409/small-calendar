@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Delete this reservation?</h1>
+<p>
+  Confirm the deletion of <strong>{{ title }}</strong> by entering the email
+  used for the reservation
+</p>
+<mat-form-field>
+  <input matInput type="text" [(ngModel)]="email" placeholder="email" />
+</mat-form-field>
+
+<div>
+  <button (click)="deleteReservation()" mat-raised-button color="warn">
+    Confirm deletion
+  </button>
+  <p *ngIf="errMessage" style="color: red">{{ errMessage }}</p>
+</div>
