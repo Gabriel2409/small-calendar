@@ -1,5 +1,5 @@
 from app.config import get_settings
-from app.routers import availabilities, hello
+from app.routers import availabilities, hello, reservations
 from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
 
@@ -9,6 +9,7 @@ def create_app():
     app = FastAPI()
     app.include_router(hello.router)
     app.include_router(availabilities.router)
+    app.include_router(reservations.router)
     return app
 
 
