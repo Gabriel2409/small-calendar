@@ -6,8 +6,6 @@ class TimestampMixin:
 
     # automatically added on record creation
     created_at = fields.DatetimeField(auto_now_add=True)
-    # automatically added on record modification
-    updated_at = fields.DatetimeField(auto_now=True)
 
 
 class AbstractBaseModel(models.Model):
