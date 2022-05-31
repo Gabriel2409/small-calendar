@@ -1,0 +1,15 @@
+.cal-week-view .cal-time-events .cal-day-column {
+  margin-right: 10px;
+}
+
+.cal-week-view .cal-hour {
+  width: calc(100% + 10px);
+}
+
+#main-wrapper {
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+  height: 80vh;
+  overflow: scroll;
+}
