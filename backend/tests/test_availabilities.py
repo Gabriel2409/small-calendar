@@ -7,7 +7,7 @@ from pydantic.datetime_parse import parse_datetime
 
 def test_post_availability(test_app):
     """Test the post route, first by checking that an object is correctly added, then
-    by adding conflicting cases and checking they are not added
+    by adding invalid and conflicting cases and checking they are not added
     """
     response = test_app.post(
         "/api/availabilities",

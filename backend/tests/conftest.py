@@ -3,6 +3,7 @@ import pathlib
 import pytest
 from app.application_factory import create_app
 from app.config import Settings, get_settings
+from app.models.tortoise_models import AvailabilitiesModel, ReservationsModel
 from fastapi.testclient import TestClient
 from tortoise.contrib.fastapi import register_tortoise
 
@@ -42,3 +43,11 @@ def test_app():
     # tear down
     # ugly way to remove the test db
     pathlib.Path(db_path).unlink()
+
+
+@pytest.fixture(autouse=True)
+async def run_around_tests():
+    """Executed before each test: deletes all records in the db"""
+    await AvailabilitiesModel.all().delete()
+    await ReservationsModel.all().delete()
+    yield
