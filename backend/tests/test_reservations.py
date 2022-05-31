@@ -23,7 +23,7 @@ def test_post_reservation(test_app):
     ]
     for obj in availabilities:
         response = test_app.post(
-            "//api/availabilitieslabilities",
+            "/api/availabilitieslabilities",
             json=obj,
         )
         assert response.status_code == 200
@@ -142,7 +142,7 @@ def test_get_all_reservations(test_app):
     ]
     for obj in availabilities:
         response = test_app.post(
-            "//api/availabilitieslabilities",
+            "/api/availabilitieslabilities",
             json=obj,
         )
         assert response.status_code == 200
@@ -181,7 +181,7 @@ def test_delete_reservation(test_app):
     """tests the delete route for reservations"""
 
     response = test_app.post(
-        "//api/availabilitieslabilities",
+        "/api/availabilitieslabilities",
         json={"start": "2022-05-31T06:00", "end": "2022-05-31T07:00"},
     )
     assert response.status_code == 200
