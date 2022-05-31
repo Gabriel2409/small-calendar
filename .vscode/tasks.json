@@ -3,7 +3,7 @@
 	"tasks": [
 		{
 			"label": "Dev mode: Run App",
-			"dependsOn": ["Dev mode: Run Backend"],
+			"dependsOn": ["Dev mode: Run Backend", "Dev mode: Run Frontend"],
 			"problemMatcher": []
 		},
 		{
@@ -19,6 +19,21 @@
 				"runOn": "default"
 			},
 			"problemMatcher": []
+		},
+		{
+			"label": "Dev mode: Run Frontend",
+			"type": "npm",
+			"script": "start",
+			"presentation": {
+				"reveal": "always",
+				"panel": "new",
+				"group": "develop"
+			},
+			"path": "frontend/",
+			"problemMatcher": [],
+			"runOptions": {
+				"runOn": "default"
+			}
 		}
 	]
 }
