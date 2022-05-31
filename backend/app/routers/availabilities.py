@@ -15,7 +15,7 @@ router = CRUDRouter(
     create_route=False,
     delete_all_route=False,
     update_route=False,
-    prefix="/api//availabilities",
+    prefix="/api/availabilities",
 )
 
 
