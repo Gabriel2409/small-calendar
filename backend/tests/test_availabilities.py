@@ -10,7 +10,7 @@ def test_post_availability(test_app):
     by adding invalid and conflicting cases and checking they are not added
     """
     response = test_app.post(
-        "/admin/availabilities",
+        "//api/availabilitieslabilities",
         json={"start": "2022-05-31T06:57", "end": "2022-05-31T07:57"},
     )
     assert response.status_code == 200
@@ -36,7 +36,7 @@ def test_post_availability(test_app):
         {"start": "2022-05-31T04:40", "end": "2023-05-31T04:50"},
     ]:
 
-        response = test_app.post("/admin/availabilities", json=obj)
+        response = test_app.post("//api/availabilitieslabilities", json=obj)
         assert response.status_code == 400
 
     # conflicts:
@@ -54,7 +54,7 @@ def test_post_availability(test_app):
         # contains
         {"start": "2022-05-31T05:00", "end": "2022-05-31T09:00"},
     ]:
-        response = test_app.post("/admin/availabilities", json=obj)
+        response = test_app.post("//api/availabilitieslabilities", json=obj)
         assert response.status_code == 409
 
     # assert it works if just after or just before
@@ -62,5 +62,5 @@ def test_post_availability(test_app):
         {"start": "2022-05-31T05:55", "end": "2022-05-31T06:55"},
         {"start": "2022-05-31T07:55", "end": "2022-05-31T08:55"},
     ]:
-        response = test_app.post("/admin/availabilities", json=obj)
+        response = test_app.post("//api/availabilitieslabilities", json=obj)
         assert response.status_code == 200
