@@ -49,6 +49,7 @@ Read this section if you plan to modify the app.
 
 Note: for simplicity, development uses a sqlite database.
 
+- Go back to root folder
 - to create an empty db, use `aerich init-db`: it will create the sqlite database and a
   migration folder used for upgrade/downgrade. If the migration folder is already here, run `aerich upgrade`
 
@@ -78,5 +79,7 @@ Note: for simplicity, development uses a sqlite database.
 ## Testing
 
 - Launch the tests by running `pytest [-vv]`
-- get the coverage by running `pytest --cov="." --cov-report html`, then open `index.html` in the html cov folder
-- Note: tests are only done in the backend here, not in the frontend
+- get the coverage by running `pytest --cov="." --cov-report html`, then open `index.html` in the `htmlcov` folder
+- Note: tests are only done in the backend here, not in the frontend. They ensure that
+  we can not populate the db with inconsistent records while using the api. Note that you can
+  still mess up the db if you enter the data directly.
