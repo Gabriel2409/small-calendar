@@ -3,7 +3,7 @@ Allows to test the app rapidly"""
 
 
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from dotenv import load_dotenv
 from models.tortoise_models import AvailabilitiesModel, ReservationsModel
@@ -21,7 +21,8 @@ async def populate_db():
         db_url=os.getenv("DATABASE_URL", ""),
         modules={"models": ["models.tortoise_models"]},
     )
-    current_datetime = datetime.utcnow()
+    local_timezone = datetime.now(timezone.utc).astimezone().tzinfo
+    current_datetime = datetime.now(tz=local_timezone)
     corresponding_monday = current_datetime - timedelta(days=current_datetime.weekday())
 
     # populates current week + monday and tuesday of next week.
