@@ -9,7 +9,7 @@ A small calendar application allowing to book time slots based on availability
 
 - To run the app with docker compose: `docker compose up`
 
-# How it workds
+# How it works
 
 ## Tables
 
