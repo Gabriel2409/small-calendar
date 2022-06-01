@@ -21,6 +21,11 @@ async def populate_db():
         db_url=os.getenv("DATABASE_URL", ""),
         modules={"models": ["models.tortoise_models"]},
     )
+    all_availabilities = await AvailabilitiesModel.all()
+    if all_availabilities:
+        print("[WARNING] Database already populated, skipping population")
+        return
+
     local_timezone = datetime.now(timezone.utc).astimezone().tzinfo
     current_datetime = datetime.now(tz=local_timezone)
     corresponding_monday = current_datetime - timedelta(days=current_datetime.weekday())

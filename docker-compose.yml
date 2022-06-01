@@ -16,10 +16,36 @@ services:
       - ENV=production
       - DATABASE_URL=postgres://small_calendar:small_calendar@db/small_calendar
 
+  frontend:
+    image: small-calendar-frontend:0.0.1
+    build:
+      dockerfile: docker/Dockerfile.frontend
+      context: .
+    container_name: small-calendar-frontend-container
+
   db:
     image: postgres:13-alpine
     container_name: small-calendar-postgres-container
+    expose:
+      - 5432:5432
+    volumes:
+      - small-calendar-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=small_calendar
       - POSTGRES_USER=small_calendar
       - POSTGRES_PASSWORD=small_calendar
+
+  nginx:
+    image: small-calendar-nginx:0.0.1
+    build:
+      dockerfile: docker/Dockerfile.nginx
+      context: .
+    ports:
+      - 4200:80
+    container_name: small-calendar-nginx-container
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  small-calendar-data:

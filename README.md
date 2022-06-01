@@ -1,14 +1,37 @@
-# Gab meeting assistant
+# Meeting assistant
 
-A small calendar application allowing to book time slots based on my availability
+A small calendar application allowing to book time slots based on availability
+
+- test the frontend at localhost:4200
+- test the backend at localhost:8000/docs
 
 # Run the app with docker
 
 - To run the app with docker compose: `docker compose up`
 
+# How it workds
+
+## Tables
+
+The app uses two tables:
+
+- availabilities which correspond to slots where recipient is available. These
+  availabilities are modifiable in the backend
+- reservations which correspond to slots where somebody booked. The reservations can not
+  overlap and can only be booked if the full reservation time slot is available (it can
+  overlap multiple availability slots but not cross an unavailable time)
+
 # Development
 
-Read this section if you plan to modify the app
+Read this section if you plan to modify the app.
+
+## Main differences with production
+
+- Development is done without docker while Prod uses docker
+- Prod uses postgres and dev uses sqlite
+- Prod uses gunicorn to launch the app while development uses uvicorn
+- Prod builds the frontend and uses nginx while development serves the frontend and
+  forwards calls to /api to the backend
 
 ## Installation (unix)
 
@@ -20,6 +43,7 @@ Read this section if you plan to modify the app
 - In the backend folder, copy the .env.example file to .env: `cp .env.example .env`
   Note: `.env` file usually contains sensitive data, which is why it is not saved to source
   control. However, there is no sensitive data in this app so `.env` is just a copy of `.env.example` without modifications
+- In the frontend folder, run `npm install` to install all the packages
 
 ## Database creation
 
@@ -36,16 +60,23 @@ Note: for simplicity, development uses a sqlite database.
 - NOTE2: aerich generated migration file depends on yoor choice of db, it is not exactly
   the same for sqlite and postgres for example
 
-- Be sure to move the created database inside the `backend` folder.
+- IMPORTANT: Be sure to move the created database inside the `backend` folder.
 
 ## Run the app
 
-- Run the backend:
+- If you have vscode, open the cmd palette with `ctrl P` then type `task + space` and choose `Dev mode: Run App`
+
+- Alternatively, to run the backend:
+
   - go to the backend folder: `cd backend`
   - run uvicorn: `uvicorn app.main:app --reload`
-  - alternatively if you have vscode: open the cmd palette with `ctrl P` then type `task + space` and choose `Dev mode: Run backend`
+
+- Alternatively, to run the frontend:
+  - go to the frontend folder: `cd frontend`
+  - run uvicorn: `npm start`
 
 ## Testing
 
 - Launch the tests by running `pytest [-vv]`
 - get the coverage by running `pytest --cov="." --cov-report html`, then open `index.html` in the html cov folder
+- Note: tests are only done in the backend here, not in the frontend

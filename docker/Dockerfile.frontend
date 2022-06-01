@@ -1,0 +1,16 @@
+FROM node:current-alpine as build
+
+WORKDIR /app
+
+COPY ./frontend/package.json .
+COPY ./frontend/package-lock.json .
+RUN npm install
+
+COPY ./frontend .
+RUN npm run build
+
+# multistage build to get a small image
+FROM nginx:1.21-alpine
+
+COPY ./docker/nginx-frontend.conf /etc/nginx/conf.d/frontend.conf
+COPY --from=build /app/dist/frontend /usr/share/nginx/html
