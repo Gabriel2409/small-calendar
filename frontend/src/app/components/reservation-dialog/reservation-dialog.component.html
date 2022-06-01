@@ -1,0 +1,58 @@
+<div id="main-wrapper">
+  <h1 mat-dialog-title>Reserve a slot</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field [color]="title?.valid && 'accent'">
+      <input
+        matInput
+        formControlName="start"
+        type="datetime-local"
+        placeholder="start"
+        autocomplete="off"
+      />
+    </mat-form-field>
+    <mat-form-field [color]="title?.valid && 'accent'">
+      <input
+        matInput
+        formControlName="end"
+        type="datetime-local"
+        placeholder="end"
+        autocomplete="off"
+      />
+    </mat-form-field>
+    <mat-form-field [color]="title?.valid && 'accent'">
+      <input
+        matInput
+        formControlName="title"
+        type="text"
+        placeholder="Title"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="title?.invalid && title?.dirty"
+        >You must enter a valid title</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field [color]="email?.valid && 'accent'">
+      <input
+        matInput
+        formControlName="email"
+        type="email"
+        placeholder="Email"
+        autocomplete="on"
+      />
+      <mat-error *ngIf="email?.invalid && email?.dirty"
+        >You must enter a valid email address</mat-error
+      >
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit"
+      [disabled]="form.invalid || loading"
+    >
+      Submit
+    </button>
+    <p *ngIf="errMessage" style="color: red">{{ errMessage }}</p>
+  </form>
+</div>

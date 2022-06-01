@@ -1,5 +1,9 @@
-<div id="main-wrapper">
+<div *ngIf="calendarEnabled" id="main-wrapper">
   <div id="nav-wrapper">
+    <button class="help-btn" (click)="onHelpClick()">
+      <mat-icon id="help-icon">help_outline</mat-icon>
+    </button>
+
     <button
       mat-button
       mwlCalendarPreviousView
@@ -33,6 +37,10 @@
     [excludeDays]="excludeDays"
     [dayStartHour]="dayStartHour"
     [dayEndHour]="dayEndHour"
+    [hourSegments]="hourSegments"
+    precision="minutes"
+    (beforeViewRender)="beforeWeekViewRender($event)"
+    (hourSegmentClicked)="onHourSegmentClicked($event.date)"
   >
   </mwl-calendar-week-view>
 </div>

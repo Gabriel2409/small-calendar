@@ -54,7 +54,7 @@ export class ApiService {
  * Represents a reservation. Note that we do not care about the created_at field
  */
 export interface Reservation {
-  id: number;
+  id?: number;
   start: string;
   end: string;
   title: string;
@@ -65,7 +65,7 @@ export interface Reservation {
  * Represents an availability. Note that we do not care about the created_at field
  */
 export interface Availability {
-  id: number;
+  id?: number;
   start: string;
   end: string;
 }
