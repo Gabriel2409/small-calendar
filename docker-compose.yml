@@ -8,8 +8,18 @@ services:
     ports:
       - 8000:8000
     container_name: small-calendar-backend-container
-    restart: always
-    env_file:
-      # note: we store the .env.prod directly in the repo because it does not contain
+    command: /start.bash
+    # restart: always
+    environment:
+      # note: we store the env vars directly in the repo because there is no
       # sensitive information
-      - docker/.env.prod
+      - ENV=production
+      - DATABASE_URL=postgres://small_calendar:small_calendar@db/small_calendar
+
+  db:
+    image: postgres:13-alpine
+    container_name: small-calendar-postgres-container
+    environment:
+      - POSTGRES_DB=small_calendar
+      - POSTGRES_USER=small_calendar
+      - POSTGRES_PASSWORD=small_calendar
