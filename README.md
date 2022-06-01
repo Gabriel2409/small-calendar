@@ -83,3 +83,13 @@ Note: for simplicity, development uses a sqlite database.
 - Note: tests are only done in the backend here, not in the frontend. They ensure that
   we can not populate the db with inconsistent records while using the api. Note that you can
   still mess up the db if you enter the data directly.
+
+# Bonus: How can machine learning help you be more organized
+
+- Each time a reservation is deleted, track it and get as many infos regarding this
+  reservation as possible (country of sender, time slot, etc)
+- Each reservation that is not deleted should be tracked as well
+- Train a model to predict the probability of a reservation to be cancelled based on the
+  time slot. Use TPOT to choose the best model easily.
+- Use this information to adjust your availabilities => if a time slot is cancelled too
+  often, you may want to remove it.
