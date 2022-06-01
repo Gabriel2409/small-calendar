@@ -20,6 +20,20 @@
 			"module": "uvicorn",
 			"args": ["app.main:app", "--port", "8000"],
 			"jinja": true
+		},
+		{
+			"name": "Angular: npm start",
+			"type": "pwa-chrome",
+			"request": "launch",
+			"url": "http://localhost:4200/",
+			"webRoot": "${workspaceFolder}/frontend",
+			"sourceMapPathOverrides": {
+				"webpack:/*": "${webRoot}/*",
+				"/./*": "${webRoot}/*",
+				"/src/*": "${webRoot}/*",
+				"/*": "*",
+				"/./~/*": "${webRoot}/node_modules/*"
+			}
 		}
 	]
 }
